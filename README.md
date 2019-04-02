@@ -9,3 +9,9 @@ To be able to create configuration server you need:
    - [x] * *spring-cloud-config-server* * dependency. 
  By default server will be run localy on port 8080. To change this behaviour 
 * **discovery-service** - 
+
+
+## Docker command - cheat sheet
+* docker ps - check running container
+* docker image ls, docker container ls --all or docker images - show docker images
+

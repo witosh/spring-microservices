@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 
 services:
   config-service:
@@ -7,3 +7,19 @@ services:
       dockerfile: Dockerfile
     ports: 
       - "8888:8888"
+    healthcheck:
+      test: ["CMD","curl","-f","http://localhost:8888/actuator/health"]
+      interval: 30s
+      timeout: 30s
+      retries: 1
+
+  discovery-service:
+    build:
+      context: discovery-service
+      dockerfile: Dockerfile
+    depends_on:
+      - config-service
+    ports: 
+      - "8761:8761"
+    restart:
+      on-failure

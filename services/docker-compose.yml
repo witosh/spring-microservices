@@ -9,7 +9,7 @@ services:
       - "8888:8888"
     healthcheck:
       test: ["CMD","curl","-f","http://localhost:8888/actuator/health"]
-      interval: 10s
+      interval: 30s
       timeout: 10s
       retries: 20
 
@@ -24,7 +24,7 @@ services:
     restart: on-failure
     healthcheck:
       test: ["CMD","curl","-f","http://localhost:8000/actuator/health"]
-      interval: 10s
+      interval: 30s
       timeout: 10s
       retries: 20
 
@@ -40,6 +40,6 @@ services:
     restart: on-failure
     healthcheck:
       test: ["CMD","curl","-f","http://localhost:8000/actuator/health"]
-      interval: 10s
+      interval: 30s
       timeout: 10s
       retries: 20

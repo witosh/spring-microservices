@@ -7,7 +7,7 @@
 	<groupId>com.spring.config</groupId>
 	<artifactId>config-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	
+
 	<name>config-service</name>
 	<description>Centralized point for support to maintain and distribute configurations</description>
 

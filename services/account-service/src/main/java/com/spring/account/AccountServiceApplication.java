@@ -1,15 +1,15 @@
-package com.spring.config;
+package com.spring.account;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.config.server.EnableConfigServer;
 
 @SpringBootApplication
-@EnableConfigServer
-public class ConfigApplication {
+@EnableDiscoveryClient
+public class AccountServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ConfigApplication.class, args);
+		SpringApplication.run(AccountServiceApplication.class, args);
 	}
+
 }

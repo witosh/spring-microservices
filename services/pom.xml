@@ -33,6 +33,7 @@
     <modules>
         <module>config-service</module>
         <module>discovery-service</module>
+        <module>account-service</module>
     </modules>
 
 </project>

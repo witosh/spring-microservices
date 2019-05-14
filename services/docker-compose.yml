@@ -9,9 +9,9 @@ services:
       - "8888:8888"
     healthcheck:
       test: ["CMD","curl","-f","http://localhost:8888/actuator/health"]
-      interval: 30s
-      timeout: 30s
-      retries: 1
+      interval: 10s
+      timeout: 10s
+      retries: 20
 
   discovery-service:
     build:
@@ -21,5 +21,25 @@ services:
       - config-service
     ports: 
       - "8761:8761"
-    restart:
-      on-failure
+    restart: on-failure
+    healthcheck:
+      test: ["CMD","curl","-f","http://localhost:8000/actuator/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 20
+
+  account-service:
+    build:
+      context: account-service
+      dockerfile: Dockerfile
+    depends_on:
+      - config-service
+      - discovery-service
+    ports: 
+      - "8000:8000"
+    restart: on-failure
+    healthcheck:
+      test: ["CMD","curl","-f","http://localhost:8000/actuator/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 20

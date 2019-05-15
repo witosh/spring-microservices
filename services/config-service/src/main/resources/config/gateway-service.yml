@@ -1,0 +1,11 @@
+server:
+   port: 8764
+
+zuul:
+  host:
+    connect-timeout-millis: 20000
+    socket-timeout-millis: 20000
+  routes:
+    account-service:
+      path: /accounts/**
+      serviceId: account-service

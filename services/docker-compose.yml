@@ -39,6 +39,17 @@ services:
       - "8764:8764"
     restart: on-failure
 
+  auth-service:
+    build:
+      context: auth-service
+      dockerfile: Dockerfile
+    depends_on:
+      - config-service
+      - discovery-service
+    ports: 
+      - "8093:8093"
+    restart: on-failure
+
   account-service:
     build:
       context: account-service

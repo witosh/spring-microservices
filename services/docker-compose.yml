@@ -4,6 +4,8 @@ services:
   config-service:
     container_name: config-service
     image: astro/config-service:Github-SNAPSHOT
+    networks:
+      - astro
     restart: always
     healthcheck:
       test: ["CMD","curl","-f","http://localhost:8888/actuator/health"]
@@ -14,6 +16,8 @@ services:
   discovery-service:
     container_name: discovery-service
     image: astro/discovery-service:Github-SNAPSHOT
+    networks:
+      - astro
     depends_on:
        config-service:
           condition: service_healthy
@@ -27,6 +31,8 @@ services:
   gateway-service:
     container_name: gateway-service
     image: astro/gateway-service:Github-SNAPSHOT
+    networks:
+      - astro
     depends_on:
       config-service:
         condition: service_healthy
@@ -41,20 +47,30 @@ services:
       timeout: 3s
       retries: 5
 
-  # auth-service:
-  #   build:
-  #     context: auth-service
-  #     dockerfile: Dockerfile
-  #   depends_on:
-  #     - config-service
-  #     - discovery-service
-  #   ports: 
-  #     - "8093:8093"
-  #   restart: on-failure
+  auth-service:
+    container_name: auth-service
+    image: astro/auth-service:Github-SNAPSHOT
+    networks:
+      - astro
+    depends_on:
+       config-service:
+          condition: service_healthy
+       discovery-service:
+          condition: service_healthy
+    ports: 
+      - "8093:8093"
+    restart: always
+    healthcheck:
+      test: ["CMD","curl","-f","http://localhost:8093/actuator/health"]
+      interval: 1m
+      timeout: 3s
+      retries: 5
 
   account-service:
     container_name: account-service
     image: astro/account-service:Github-SNAPSHOT
+    networks:
+      - astro
     depends_on:
        config-service:
           condition: service_healthy
@@ -64,10 +80,11 @@ services:
       - "8000:8000"
     restart: always
     healthcheck:
-      test: ["CMD","curl","-f","http://localhost:8000/"]
+      test: ["CMD","curl","-f","http://localhost:8000/actuator/health"]
       interval: 1m
       timeout: 3s
       retries: 5
-  # networks:
-  #     astro:
-  #       # driver: bridge
+
+networks:
+  astro:
+    driver: bridge

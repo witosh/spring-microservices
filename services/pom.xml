@@ -35,7 +35,7 @@
         <module>discovery-service</module>
         <module>gateway-service</module>
         <module>auth-service</module>
-        <module>account-service</module>
+    <!--     <module>account-service</module> -->
     </modules>
 
 </project>

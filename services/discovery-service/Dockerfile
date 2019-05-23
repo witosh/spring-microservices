@@ -1,4 +1,4 @@
-FROM openjdk:8-jre-alpine
+FROM java:8
 ARG VERSION=Github
 VOLUME /tmp
 

@@ -1,12 +1,10 @@
-version: '2.1'
+version: '2.2'
 
 services:
   config-service:
     container_name: config-service
     image: astro/config-service:Github-SNAPSHOT
     restart: always
-    ports: 
-      - "8888:8888"
     healthcheck:
       test: ["CMD","curl","-f","http://localhost:8888/actuator/health"]
       interval: 1m
@@ -17,27 +15,31 @@ services:
     container_name: discovery-service
     image: astro/discovery-service:Github-SNAPSHOT
     depends_on:
-      - config-service
+       config-service:
+          condition: service_healthy
     restart: always
-    ports: 
-      - "8761:8761"
-    restart: on-failure
     healthcheck:
       test: ["CMD","curl","-f","http://localhost:8761/actuator/health"]
       interval: 1m
       timeout: 3s
       retries: 5
       
-  # gateway-service:
-  #   build:
-  #     context: gateway-service
-  #     dockerfile: Dockerfile
-  #   depends_on:
-  #     - config-service
-  #     - discovery-service
-  #   ports: 
-  #     - "8764:8764"
-  #   restart: on-failure
+  gateway-service:
+    container_name: gateway-service
+    image: astro/gateway-service:Github-SNAPSHOT
+    depends_on:
+      config-service:
+        condition: service_healthy
+      discovery-service:
+        condition: service_healthy
+    restart: always
+    ports: 
+      - "8764:8764"
+    healthcheck:
+      test: ["CMD","curl","-f","http://localhost:8764/actuator/health"]
+      interval: 1m
+      timeout: 3s
+      retries: 5
 
   # auth-service:
   #   build:
@@ -50,21 +52,22 @@ services:
   #     - "8093:8093"
   #   restart: on-failure
 
-  # account-service:
-  #   build:
-  #     context: account-service
-  #     dockerfile: Dockerfile
-  #   depends_on:
-  #     - config-service
-  #     - discovery-service
-  #   ports: 
-  #     - "8000:8000"
-  #   restart: on-failure
-  #   healthcheck:
-  #     test: ["CMD","curl","-f","http://localhost:8000/"]
-  #     interval: 5s
-  #     timeout: 5s
-  #     retries: 20
+  account-service:
+    container_name: account-service
+    image: astro/account-service:Github-SNAPSHOT
+    depends_on:
+       config-service:
+          condition: service_healthy
+       discovery-service:
+          condition: service_healthy
+    ports: 
+      - "8000:8000"
+    restart: always
+    healthcheck:
+      test: ["CMD","curl","-f","http://localhost:8000/"]
+      interval: 1m
+      timeout: 3s
+      retries: 5
   # networks:
   #     astro:
   #       # driver: bridge

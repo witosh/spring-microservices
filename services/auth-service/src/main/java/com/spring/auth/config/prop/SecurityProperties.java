@@ -5,13 +5,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("security")
 public class SecurityProperties {
 
-    private JwtProperties jwt;
+    private JWTProperties jwt;
 
-    public JwtProperties getJwt() {
+    public JWTProperties getJWT() {
         return jwt;
     }
 
-    public void setJwt(JwtProperties jwt) {
+    public void setJWT(JWTProperties jwt) {
         this.jwt = jwt;
     }
 }

@@ -20,12 +20,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private PasswordEncoder passwordEncoder;
 	private UserDetailsService userDetailsService;
 
-	public WebSecurityConfiguration(DataSource dataSource) {
-		super();
+	public WebSecurityConfiguration(final DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
 
-	protected void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
+	protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
 	}
 

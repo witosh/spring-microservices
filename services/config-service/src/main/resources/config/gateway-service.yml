@@ -9,3 +9,6 @@ zuul:
     account-service:
       path: /accounts/**
       serviceId: account-service
+    auth-service:  
+      path: /auth/**
+      serviceId: auth-service

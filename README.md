@@ -12,3 +12,11 @@ To be able to create configuration server you need:
 
 https://www.baeldung.com/spring-security-oauth-dynamic-client-registration
 https://medium.com/@darutk/diagrams-and-movies-of-all-the-oauth-2-0-flows-194f3c3ade85
+
+<!--
+http://blog.marcosbarbero.com/centralized-authorization-jwt-spring-boot2/
+https://projects.spring.io/spring-security-oauth/docs/oauth2.html
+https://spring.io/blog/2013/07/03/spring-security-java-config-preview-web-security
+https://www.oauth.com/
+https://github.com/marcosbarbero/spring-boot2-oauth2-jwt/tree/master/oauth2-jwt-server/src/main/java/com/marcosbarbero/lab/sec/oauth/jwt/config/security
+-->

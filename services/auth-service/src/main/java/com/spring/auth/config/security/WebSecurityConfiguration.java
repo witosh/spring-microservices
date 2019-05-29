@@ -16,38 +16,38 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	private final DataSource dataSource;
-	
+
 	private PasswordEncoder passwordEncoder;
 	private UserDetailsService userDetailsService;
-	
+
 	public WebSecurityConfiguration(DataSource dataSource) {
 		super();
 		this.dataSource = dataSource;
 	}
-	
+
 	protected void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
 	}
-	
+
 	@Bean
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
-	
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		if(passwordEncoder == null) {
-			passwordEncoder =  PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		if (passwordEncoder == null) {
+			passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 		}
 		return passwordEncoder;
 	}
-	
+
 	@Bean
-    public UserDetailsService userDetailsService() {
-        if (userDetailsService == null) {
-            userDetailsService = new JdbcDaoImpl();
-            ((JdbcDaoImpl) userDetailsService).setDataSource(dataSource);
-        }
-        return userDetailsService;
-    }
+	public UserDetailsService userDetailsService() {
+		if (userDetailsService == null) {
+			userDetailsService = new JdbcDaoImpl();
+			((JdbcDaoImpl) userDetailsService).setDataSource(dataSource);
+		}
+		return userDetailsService;
+	}
 }

@@ -3,6 +3,7 @@ spring:
     name: account-service
   cloud:
     config:
+      enabled: true
       uri: http://config-service:8888
       fail-fast: true
       retry:

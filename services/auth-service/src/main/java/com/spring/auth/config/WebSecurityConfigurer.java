@@ -1,8 +1,10 @@
-package com.spring.auth.config.security;
+package com.spring.auth.config;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,40 +15,43 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
-public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+@Configuration
+public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
+	@Autowired
 	private final DataSource dataSource;
 
-	private PasswordEncoder passwordEncoder;
-	private UserDetailsService userDetailsService;
+	@Autowired
+	PasswordEncoder passwordEncrypt;
 
-	public WebSecurityConfiguration(final DataSource dataSource) {
+	@Autowired
+	UserDetailsService userDetailsService;
+
+	public WebSecurityConfigurer(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
 
-	protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(this.userDetailsService).passwordEncoder(this.passwordEncrypt);
 	}
 
 	@Bean
+	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		if (passwordEncoder == null) {
-			passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-		}
-		return passwordEncoder;
+		passwordEncrypt = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		return passwordEncrypt;
 	}
 
 	@Bean
 	public UserDetailsService userDetailsService() {
-		if (userDetailsService == null) {
-			userDetailsService = new JdbcDaoImpl();
-			((JdbcDaoImpl) userDetailsService).setDataSource(dataSource);
-		}
+		userDetailsService = new JdbcDaoImpl();
+		((JdbcDaoImpl) userDetailsService).setDataSource(dataSource);
 		return userDetailsService;
 	}
 }

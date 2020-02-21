@@ -3,7 +3,7 @@ spring:
     name: discovery-service
   cloud:
     config:
-      uri: http://config-service:8888
+      uri: http://config-server:8888
       fail-fast: true
       retry:
         initialInterval: 3000

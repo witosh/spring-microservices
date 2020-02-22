@@ -62,7 +62,7 @@ server:
 
 **[⬆ Back to Top](#spring-cloud-architecture)**
 
-### ### Spring Eureka Service Registry
+### Spring Eureka Service Registry
 
 To create a Spring Cloud - Eureka Service Registry we need to:
 - add the required dependencies
@@ -104,25 +104,25 @@ The plugin is not calling Docker directly but instead acts as a wrapper around D
 **This means that the plugin can only use Docker features that are offered by the docker-client library and if at any point this library breaks because an incompatible Docker version appeared, the plugin will also break.**
 
 ```xml
-		<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>dockerfile-maven-plugin</artifactId>
-				<version>1.3.7</version>
-				<executions>
-					<execution>
-						<id>default</id>
-						<goals>
-							<goal>build</goal>
-							<goal>push</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<repository>${docker.registry}/${project.artifactId}</repository>
-					<tag>${project.version}</tag>
-					<skip>false</skip>
-				</configuration>
-			</plugin>
+<plugin>
+		<groupId>com.spotify</groupId>
+		<artifactId>dockerfile-maven-plugin</artifactId>
+		<version>1.3.7</version>
+		<executions>
+			<execution>
+				<id>default</id>
+					<goals>
+						<goal>build</goal>
+						<goal>push</goal>
+					</goals>
+			</execution>
+		</executions>
+		<configuration>
+		<repository>${docker.registry}/${project.artifactId}</repository>
+			<tag>${project.version}</tag>
+			<skip>false</skip>
+		</configuration>
+</plugin>
 ```
 
 [Using Docker from Maven and Maven from Docker](https://codefresh.io/howtos/using-docker-maven-maven-docker/)

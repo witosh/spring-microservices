@@ -62,6 +62,36 @@ server:
 
 **[⬆ Back to Top](#spring-cloud-architecture)**
 
+### ### Spring Eureka Service Registry
+
+To create a Spring Cloud - Eureka Service Registry we need to:
+- add the required dependencies
+- tell spring where to look for our configuration files
+- add @EnableEurekaServer annotation
+
+Add necessary annotation:
+```java
+@SpringBootApplication
+@EnableEurekaServer
+public class DiscoveryApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(DiscoveryApplication.class, args);
+	}
+
+}
+```
+
+Add needed depenedcy:
+```
+<dependency>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+	<version>2.1.0.RELEASE</version>
+</dependency>
+```
+
+**[⬆ Back to Top](#spring-cloud-architecture)**
 
 ### Using Docker from Maven
 

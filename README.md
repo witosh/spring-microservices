@@ -91,6 +91,43 @@ Add needed depenedcy:
 </dependency>
 ```
 
+#### Bootstrap configuration
+Configuration in bootstrap.yml file
+
+Set-up name of application:
+```yml
+spring:
+  application:
+    name: discovery-service
+```
+
+Initializes Spring Environment with remote property sources:
+```yml
+spring:
+	cloud:
+		config:
+			uri=http://config-server:8888
+```
+
+To desirable to fail startup of a service if it cannot connect to the Config Server, set:
+```yml
+spring:
+	cloud:
+		config:
+			failFast=true
+```
+Config server may occasionally be unavailable when your app starts, you can ask it to keep trying after a failure. By adding 
+```yml
+spring:
+	cloud:
+		config:
+			retry.*
+```
+and above *failFast* configuration.
+
+
+[Spring boot microservices with Eureka server](https://medium.com/@kapilanishantha/spring-boot-microservices-with-eureka-server-5e3585a97f2)
+
 **[⬆ Back to Top](#spring-cloud-architecture)**
 
 ### Using Docker from Maven

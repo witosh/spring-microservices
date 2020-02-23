@@ -4,8 +4,8 @@
 
 | No.        | Topics           | 
 | ------------- |:-------------|
-| 1. | [*Spring Cloud Config*](#sprin-cloud-config)|
-| 2. | [*Spring Eureka*](#spring-eureka)|
+| 1. | [*Spring Cloud Config*](#spring-cloud-config)|
+| 2. | [*Spring Eureka*](#spring-eureka-service-registry)|
 
 ## Building project cases
 
@@ -142,23 +142,23 @@ The plugin is not calling Docker directly but instead acts as a wrapper around D
 
 ```xml
 <plugin>
-		<groupId>com.spotify</groupId>
-		<artifactId>dockerfile-maven-plugin</artifactId>
-		<version>1.3.7</version>
-		<executions>
-			<execution>
-				<id>default</id>
-					<goals>
-						<goal>build</goal>
-						<goal>push</goal>
-					</goals>
-			</execution>
-		</executions>
-		<configuration>
+	<groupId>com.spotify</groupId>
+	<artifactId>dockerfile-maven-plugin</artifactId>
+	<version>1.3.7</version>
+	<executions>
+		<execution>
+			<id>default</id>
+			<goals>
+				<goal>build</goal>
+				<goal>push</goal>
+			</goals>
+		</execution>
+	</executions>
+	<configuration>
 		<repository>${docker.registry}/${project.artifactId}</repository>
-			<tag>${project.version}</tag>
-			<skip>false</skip>
-		</configuration>
+		<tag>${project.version}</tag>
+		<skip>false</skip>
+	</configuration>
 </plugin>
 ```
 

@@ -1,4 +1,14 @@
-# Microservices project Config, Eureka, Zuul, OAuth2
+# Microservices with Spring Boot, Spring Cloud, Spring Security
+
+In microservice architecture, you need a method for locating services and load balancing over the different instances of the service you are calling.
+
+## Table of content in micoservice
+
+| No.        | Topics           | 
+| ------------- |:-------------|
+| 1. | [*Service registry*](#service-registry)|
+
+
 
 ## Spring Cloud architecture
 
@@ -20,7 +30,6 @@ To create a Spring Cloud Config Server we need to:
 - add the required dependencies
 - tell spring where to look for our configuration files
 - add @EnableConfigServer annotation
-
 
 Add needed depenedcy:
 ```
@@ -165,6 +174,31 @@ The plugin is not calling Docker directly but instead acts as a wrapper around D
 [Using Docker from Maven and Maven from Docker](https://codefresh.io/howtos/using-docker-maven-maven-docker/)
 
 **[⬆ Back to Top](#building-project-cases)**
+
+
+### Service registry
+
+A service registry is a persistent store that holds a list of all the available microservices at any
+time and the routes that they can be reached on.[1]
+
+Reasons for communicating service with service registry:
+- **Registration** - after a service has been successfully deployed, the microservice must be registered with
+the service registry
+- **Heartbeats** - the microservice should send regular heartbeats to the registry to show that it is ready to
+receive requests.
+- **Service discovery** - to communicate with another service, a microservice must call the service registry to get
+a list of available instances
+- **De-registration** - when a service is down, it must be removed from the list of available services in the
+service registry. [1]
+
+##### De-registration
+If the microservice itself performs registration and heartbeats,
+the service registry can unregister the service if it misses a heartbeat.
+
+**[⬆ Back to Top](#table-of-content-in-micoservice)**
+
+Sources:
+[1] [Microservices Best Practices for Java M. Hofmann,E. Schnabel, K. Stanley](https://www.redbooks.ibm.com/redbooks/pdfs/sg248357.pdf)
 
 <!-- In this project, I will try to prepare all the infrastructure for microservices and write a couple of my services. -->
 <!-- ## Microservices architecture:
